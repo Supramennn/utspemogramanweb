@@ -1,6 +1,6 @@
 // ====== Data buku (dummy) ======
 const BOOKS = [
-    { id: 'bk-001', title: 'Algoritma & Struktur Data', author: 'T. Wibisono' },
+    { id: 'bk-001', title: 'Madilog', author: 'Tan Malaka', image:'https://mabhak.sch.id/wp-content/uploads/2023/12/9789791683319_Madilog-Tan-Malaka-Materialisme-Dialektika-Logika.jpg' },
     { id: 'bk-002', title: 'Basis Data Relasional', author: 'N. Pratama' },
     { id: 'bk-003', title: 'Clean Code', author: 'Robert C. Martin' },
     { id: 'bk-004', title: 'Eloquent JavaScript', author: 'Marijn Haverbeke' },
