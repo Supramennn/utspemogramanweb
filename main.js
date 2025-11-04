@@ -1,8 +1,8 @@
 // ====== Data buku (dummy) ======
 const BOOKS = [
     { id: 'bk-001', title: 'Madilog', author: 'Tan Malaka', image:'https://mabhak.sch.id/wp-content/uploads/2023/12/9789791683319_Madilog-Tan-Malaka-Materialisme-Dialektika-Logika.jpg' },
-    { id: 'bk-002', title: 'Basis Data Relasional', author: 'N. Pratama' },
-    { id: 'bk-003', title: 'Clean Code', author: 'Robert C. Martin' },
+    { id: 'bk-002', title: 'Timun Jelita', author: 'Raditya Dika', image:'https://gagasmedia.net/wp-content/uploads/2024/12/timun-jelita-rev1.jpg' },
+    { id: 'bk-003', title: 'Seporsi Mie Ayam Sebelum Mati', author: 'Brian Khrisna', image:'https://dpk.jogjakota.go.id/assets/instansi/dpk/article/20250604110730.jpg' },
     { id: 'bk-004', title: 'Eloquent JavaScript', author: 'Marijn Haverbeke' },
     { id: 'bk-005', title: 'Pemrograman Python untuk Data', author: 'Y. Alamsyah' },
     { id: 'bk-006', title: 'Machine Learning Dasar', author: 'A. Nugroho' },
@@ -11,7 +11,7 @@ const BOOKS = [
     { id: 'bk-009', title: 'Operating Systems', author: 'A. Silberschatz' },
     { id: 'bk-010', title: 'Database System Concepts', author: 'H. Korth' },
     { id: 'bk-011', title: 'Jaringan Komputer', author: 'A. Tanenbaum' },
-    { id: 'bk-012', title: 'The Lord of the Rings', author: 'J. R. R. Tolkien' },
+    { id: 'bk-012', title: 'The Lord of the Rings', author: 'J. R. R. Tolkien', image:'https://komunita.widyatama.ac.id/wp-content/uploads/2017/08/19.jpg' },
 ];
 
 // ====== Storage util ======
