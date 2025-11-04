@@ -27,6 +27,13 @@ const search = document.getElementById('search');
 
 function makeCard(book, i) {
     const node = tmpl.content.firstElementChild.cloneNode(true);
+    const cover = node.querySelector('.cover');
+if (book.image) {
+  cover.style.backgroundImage = `url(${book.image})`;
+  cover.style.backgroundSize = 'cover';
+  cover.style.backgroundPosition = 'center';
+}
+
     node.querySelector('[data-field="title"]').textContent = book.title;
     node.querySelector('[data-field="author"]').textContent = 'oleh ' + book.author;
 
