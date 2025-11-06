@@ -98,3 +98,19 @@
         transform: translateY(0)
     }
 }
+
+/* ---------------------------- */
+#bookCover {
+    min-height: 750px;
+    transition: transform 0.3s ease;
+}
+
+#bookCover:hover {
+    transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+    #bookCover {
+        min-height: 300px;
+    }
+}
