@@ -287,100 +287,23 @@ const BOOKS = [
     },
 */
 
-// ====== Storage util ======
-const storageKey = 'mini-lib-status-v2';
-const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
-function persist() { localStorage.setItem(storageKey, JSON.stringify(saved)); }
+// ====== Ambil ID dari URL ======
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+const book = BOOKS.find(b => b.id === id);
 
-// ====== Render grid ======
-const grid = document.getElementById('grid');
-const tmpl = document.getElementById('cardTemplate');
-const resultCount = document.getElementById('resultCount');
-const search = document.getElementById('search');
+// ====== Render Detail ======
+const detailEl = document.getElementById('detail');
+if (book) {
+    document.getElementById('bookTitle').textContent = book.title;
+    document.getElementById('bookAuthor').textContent = 'oleh ' + book.author;
+    document.getElementById('bookDesc').textContent = book.description || 'Belum ada deskripsi.';
 
-function makeCard(book, i) {
-    const node = tmpl.content.firstElementChild.cloneNode(true);
-    const cover = node.querySelector('.cover');
-
-    if (book.image) {
-        cover.style.backgroundImage = `url(${book.image})`;
-        cover.style.backgroundSize = 'cover';
-        cover.style.backgroundPosition = 'center';
-    }
-
-    node.querySelector('[data-field="title"]').textContent = book.title;
-    node.querySelector('[data-field="author"]').textContent = 'oleh ' + book.author;
-
-    const card = node.querySelector('.book-card');
-    card.style.animationDelay = `${i * 60}ms`; // staggered animation
-
-    card.addEventListener('click', (e) => {
-        if (e.target.closest('button')) return;
-        window.location.href = `detail.html?id=${book.id}`;
-    });
-
-    const statusPill = node.querySelector('.status');
-    const label = statusPill.querySelector('.label');
-    const dot = statusPill.querySelector('.dot');
-    const btn = node.querySelector('.btn');
-    const ribbon = node.querySelector('.ribbon');
-
-    function applyState(isBorrowed) {
-        btn.setAttribute('aria-pressed', isBorrowed ? 'true' : 'false');
-        if (isBorrowed) {
-            statusPill.classList.add('borrowed', 'text-bg-danger');
-            statusPill.classList.remove('text-bg-success');
-            label.textContent = 'Dipinjam';
-            btn.querySelector('.btn-label').textContent = 'Kembalikan';
-            ribbon.classList.remove('d-none');
-        } else {
-            statusPill.classList.remove('borrowed', 'text-bg-danger');
-            statusPill.classList.add('text-bg-success');
-            label.textContent = 'Tersedia';
-            btn.querySelector('.btn-label').textContent = 'Pinjam';
-            ribbon.classList.add('d-none');
-        }
-    }
-
-    applyState(!!saved[book.id]);
-
-    btn.addEventListener('click', () => {
-        const nowBorrowed = !saved[book.id];
-        saved[book.id] = nowBorrowed;
-        if (!nowBorrowed) delete saved[book.id];
-        applyState(nowBorrowed);
-        persist();
-    });
-
-    return node;
+    // contoh gambar cover (optional)
+    const cover = document.getElementById('bookCover');
+    cover.style.backgroundImage = `url(${book.image})`;
+    cover.style.backgroundSize = 'cover';
+    cover.style.backgroundPosition = 'center';
+} else {
+    detailEl.innerHTML = '<div class="text-center text-danger py-5"><h4>Book Not Found</h4></div>';
 }
-
-function render(data) {
-    grid.innerHTML = '';
-    data.forEach((b, i) => grid.appendChild(makeCard(b, i)));
-    updateCount();
-    toggleEmpty(data.length === 0);
-}
-
-function updateCount() {
-    const visible = grid.querySelectorAll('.book-card').length;
-    resultCount.textContent = `${visible} hasil`;
-}
-function toggleEmpty(show) { document.getElementById('empty').classList.toggle('d-none', !show); }
-
-// ====== Search (Live) ======
-function filterBooks(q) {
-    const s = q.trim().toLowerCase();
-    if (!s) { render(BOOKS); return; }
-    const filtered = BOOKS.filter(b => b.title.toLowerCase().includes(s) || b.author.toLowerCase().includes(s));
-    render(filtered);
-}
-search.addEventListener('input', (e) => filterBooks(e.target.value));
-
-// keyboard shortcut '/'
-window.addEventListener('keydown', (e) => {
-    if (e.key === '/' && document.activeElement !== search) { e.preventDefault(); search.focus(); }
-});
-
-// first paint
-render(BOOKS);
