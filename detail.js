@@ -17,6 +17,7 @@ const BOOKS = [
 
         —Tan Malaka
     `},
+
     {
         id: 'bk-002',
         title: 'Timun Jelita',
@@ -31,10 +32,12 @@ const BOOKS = [
         Timun Jelita, sebuah cerita panjang dan duo musik.
         `
     },
+
     {
         id: 'bk-003',
         title: 'Seporsi Mie Ayam Sebelum Mati',
         author: 'Brian Khrisna',
+
         image: 'https://dpk.jogjakota.go.id/assets/instansi/dpk/article/20250604110730.jpg',
         description: `
         Ale, seorang pria berusia 37 tahun memiliki tinggi badan 189 cm dan berat 138 kg. Badannya bongsor, berkulit hitam, dan memiliki masalah dengan bau badan. Sejak kecil, Ale hidup di lingkungan keluarga yang tidak mendukungnya. Ia tak memiliki teman dekat dan menjadi korban perundungan di sekolahnya.
@@ -49,6 +52,7 @@ const BOOKS = [
 
         Ale akan makan seporsi mie ayam sebelum mati.`
     },
+
     {
         id: 'bk-004',
         title: 'The Lord of the Rings',
@@ -74,6 +78,7 @@ const BOOKS = [
         Rencana Aragorn dan Gandalf di depan Gerbang Hitam Mordor terbongkar oleh Sauron. Perhatian Sauron langsung berpindah dan mengarah ke Gunung Maut di mana Frodo dan Sam berada sekarang…
         `
     },
+
     {
         id: 'bk-005',
         title: '11.11',
@@ -93,6 +98,7 @@ const BOOKS = [
         Pilihan judul 11:11 pada buku ini sepertinya dikarenakan di dalamnya menyuguhkan 11 cerita dengan karakter dan tema cerita yang berbeda. Terbagi dalam beberapa bagian, cerita di dalam buku ini memiliki judul-judul, yaitu Ainy, Melangkah Tanpamu, Acak Corak, Home, Samar, Tamaram, Kala, Glimpse, Harapan, I Heart Thee, serta Senja Bersayap.
         `
     },
+
     {
         id: 'bk-006',
         title: 'The Dating Game',
@@ -112,6 +118,7 @@ const BOOKS = [
         Emma and Kemal shared a brief of history together. Can they survive each other?
         `
     },
+
     {
         id: 'bk-007',
         title: 'Tentang Kamu',
@@ -130,6 +137,7 @@ const BOOKS = [
         Masa lalu. Rasa sakit. Masa depan. Mimpi-mimpi. Semua akan berlalu, seperti sungai yang mengalir. Maka biarlah hidupku mengalir seperti sungai kehidupan.
         `
     },
+
     {
         id: 'bk-008',
         title: 'Hujan',
@@ -162,6 +170,7 @@ const BOOKS = [
         Buku Life Lessons ini sangat bagus dan indah. Melalui buku ini kita akan belajar banyak mengenai emosi serta hasrat seseorang untuk menjalani hidup. Tidak sedikit orang menghabiskan seluruh hidupnya untuk mencari sebuah makna dari sebuah kehidupan, hingga akhirnya mereka lupa bahwa makna dari kehidupan adalah hidup mereka itu sendiri. Semoga kita semua tidak akan tersesat di dalam sebuah pencarian tanpa hasil.
         `
     },
+
     {
         id: 'bk-010',
         title: 'It Didn’t Start With You',
@@ -182,6 +191,7 @@ const BOOKS = [
         Mark Wolynn adalah pendiri dan direktur Family Constellation Institute. Ia telah mengajar di University of Pittsburgh, Western Psychiatric Institute, Kripalu, Omega Institute of Integral Studies serta banyak pusat pelatihan, klinik dan rumah-rumah sakit. Artikel-artikelnya banyak tersebar di Psychology Today, Mind Body Green, Mariashriver.com, Elephant Journal, dan Psych Central. Sebagai tambahan, ia juga menulis puisi yang telah terbit di The New Yorker. Saat ini, Mark tinggal di area San Fransisco Bay
         `
     },
+
     {
         id: 'bk-011',
         title: 'As Long as the Lemon Trees Grow',
@@ -207,6 +217,7 @@ const BOOKS = [
         Write down your thoughts, impressions, and lessons learned. Involve the family in reading activities. Read stories to children or invite them to read together. It creates close family bonds through positive activities. Feel free to explore new genres. Sometimes, the best surprises come from books you never imagined you would enjoy. Take advantage of technology by reading digital books or joining an online literacy community. This opens up opportunities to connect with readers from all over the world.
         `
     },
+
     {
         id: 'bk-012',
         title: 'Bagaimana Jika Tuhan Bilang Tidak?',
@@ -227,6 +238,7 @@ const BOOKS = [
         Pernahkah Anda terpikir betapa menariknya dunia yang terbuka lebar lewat lembaran buku? Membaca bukan hanya kegiatan rutin, tetapi juga petualangan tak terbatas ke dalam imajinasi dan pengetahuan. Membaca mengasah pikiran, membuka wawasan, dan memperkaya kosakata. Ini adalah pintu menuju dunia di luar kita yang tak terbatas. Tetapkan waktu khusus untuk membaca setiap hari. Dari membaca sebelum tidur hingga menyempatkan waktu di pagi hari, kebiasaan membaca dapat dibentuk dengan konsistensi. Pilih buku sesuai minat dan level literasi. Mulailah dengan buku yang sesuai dengan keinginan dan kemampuan membaca. Temukan tempat yang tenang dan nyaman untuk membaca. Lampu yang cukup, kursi yang nyaman, dan sedikit musik pelataran bisa menciptakan pengalaman membaca yang lebih baik. Buat catatan atau jurnal tentang buku yang telah Anda baca. Tuliskan pemikiran, kesan, dan pelajaran yang Anda dapatkan.
         `
     },
+
     {
         id: 'bk-013',
         title: 'Laut Bercerita',
@@ -243,6 +255,7 @@ const BOOKS = [
         Laut Bercerita, novel terbaru Leila S. Chudori, bertutur tentang kisah keluarga yang kehilangan, sekumpulan sahabat yang merasakan kekosongan di dada, sekelompok orang yang gemar menyiksa dan lancar berkhianat, sejumlah keluarga yang mencari kejelasan makam anaknya, dan tentang cinta yang tak akan luntur.
         `
     },
+
     {
         id: 'bk-014',
         title: 'Sebuah Seni untuk Bersikap Bodo Amat',
@@ -260,6 +273,7 @@ const BOOKS = [
         "Dalam hidup ini, kita hanya punya kepedulian dalam jumlah yang terbatas. Makanya, Anda harus bijaksana dalam menentukan kepedulian Anda." Manson menciptakan momen perbincangan yang serius dan mendalam, dibungkus dengan cerita-cerita yang menghibur dan "kekinian", serta humor yang cadas. Buku ini merupakan tamparan di wajah yang menyegarkan untuk kita semua, supaya kita bisa mulai menjalani kehidupan yang lebih memuaskan, dan apa adanya.
         `
     },
+
     {
         id: 'bk-015',
         title: 'I Want To Die But I Want To Eat Tteokpokki',
@@ -281,6 +295,7 @@ const BOOKS = [
         id: 'bk-007',
         title: '',
         author: '',
+>>>>>>> d760dfec5a4d7a410131fa853fcaed298e92886e
         image: '',
         description: `
         `
@@ -306,4 +321,5 @@ if (book) {
     cover.style.backgroundPosition = 'center';
 } else {
     detailEl.innerHTML = '<div class="text-center text-danger py-5"><h4>Book Not Found</h4></div>';
+
 }
