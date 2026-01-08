@@ -10,12 +10,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=7" />
+    <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body class="bg-slate text-light">
+    <!-- ALERT DELETE BOOK -->
+    <div id="alert" class="alert alert-success d-none">
+        Buku berhasil dihapus
+    </div>
+
     <!-- AUTH GUARD -->
-    <script src="login.js"></script>
+    <script src="js/login.js"></script>
     <script>
         const currentUser = requireAuth("login.html");
         window.CURRENT_USER = currentUser; // dipakai app.js
@@ -50,21 +55,33 @@
     <!-- HEADER -->
     <header class="container py-4">
         <div class="row g-3 align-items-center">
-            <div class="col-lg-7">
+            <div class="col-lg-6">
                 <h1 class="fw-extrabold mb-1">Katalog Buku</h1>
                 <p class="text-secondary mb-0">
                     Cari buku favoritmu dan lihat status peminjamannya.
-                    <span id="roleNote"></span>
                 </p>
+                <span id="roleNote"></span>
             </div>
 
-            <div class="col-lg-5">
-                <div class="input-group">
-                    <span class="input-group-text bg-dark text-secondary border-0"><i class="bi bi-search"></i></span>
-                    <input id="search" type="text" class="form-control bg-dark text-light border-0"
+            <div class="col-lg-4">
+                <div class="input-group mb-2">
+                    <span class="input-group-text bg-dark text-secondary border-0">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input id="search" type="text"
+                        class="form-control bg-dark text-light border-0"
                         placeholder="Cari judul atau penulis…" autocomplete="off" />
-                    <span id="resultCount" class="input-group-text bg-dark text-secondary border-0">0</span>
+                    <span id="resultCount"
+                        class="input-group-text bg-dark text-secondary border-0">0</span>
                 </div>
+            </div>
+
+            <div class="col-lg-2">
+                <!-- ADMIN ONLY -->
+                <a id="btnAddBook" href="create.html"
+                    class="btn btn-success d-none w-100">
+                    <i class="bi bi-plus-lg"></i> Tambah Buku
+                </a>
             </div>
         </div>
 
@@ -180,7 +197,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-    <script src="app.js?v=7"></script>
+    <script src="js/app.js"></script>
     <script>
         document.getElementById("userName").textContent = currentUser?.username || "User";
         document.getElementById("roleBadge").textContent = currentUser?.role || "user";
@@ -189,9 +206,15 @@
             (currentUser?.role === "admin") ? " (Kamu admin — bisa ubah status buku)" : " (Kamu user — read-only)";
 
         document.getElementById("logoutBtn").addEventListener("click", () => {
-            clearAuth();
+            // clearAuth();
+            localStorage.clear();
             window.location.href = "login.html";
         });
+
+        const btnAdd = document.getElementById("btnAddBook");
+        if (currentUser?.role === "admin") {
+            btnAdd.classList.remove("d-none");
+        }
 
         document.getElementById("year").textContent = new Date().getFullYear();
     </script>
