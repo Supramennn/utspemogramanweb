@@ -2,7 +2,7 @@ const id = new URLSearchParams(location.search).get('id');
 
 if (!id) {
     alert("ID tidak ditemukan");
-    location.href = "index.html";
+    location.href = "dashboard.html";
 }
 
 // ambil data buku

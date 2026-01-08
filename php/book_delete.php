@@ -2,7 +2,7 @@
 require 'koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: ../index.html");
+    header("Location: ../dashboard.html");
     exit;
 }
 
@@ -12,5 +12,5 @@ $stmt = $conn->prepare("DELETE FROM book WHERE id=?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 
-header("Location: ../index.html?deleted=1");
+header("Location: ../dashboard.html?deleted=1");
 exit;

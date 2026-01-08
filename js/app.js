@@ -1,3 +1,7 @@
+// ====== Role user dari auth ======
+const CURRENT_USER = window.CURRENT_USER || { username: "user", role: "user" };
+const IS_ADMIN = (CURRENT_USER.role || "user").toLowerCase() === "admin";
+
 // ====== Data buku (old dummy) ======
 // const BOOKS = [
 //     {
@@ -17,10 +21,10 @@
 
 //         —Tan Malaka
 //     `},
-//     { 
-//         id: 'bk-002', 
-//         title: 'Timun Jelita', 
-//         author: 'Raditya Dika', 
+//     {
+//         id: 'bk-002',
+//         title: 'Timun Jelita',
+//         author: 'Raditya Dika',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/products/3jun2vt22e.jpg',
 //         description: `
 //         Setelah ayahnya meninggal dan mewariskan sebuah gitar tua, seorang akuntan berusia 40 tahun menemukan hasrat untuk kembali bermusik.
@@ -31,10 +35,10 @@
 //         Timun Jelita, sebuah cerita panjang dan duo musik.
 //         `
 //     },
-//     { 
-//         id: 'bk-003', 
-//         title: 'Seporsi Mie Ayam Sebelum Mati', 
-//         author: 'Brian Khrisna', 
+//     {
+//         id: 'bk-003',
+//         title: 'Seporsi Mie Ayam Sebelum Mati',
+//         author: 'Brian Khrisna',
 //         image: 'https://dpk.jogjakota.go.id/assets/instansi/dpk/article/20250604110730.jpg',
 //         description: `
 //         Ale, seorang pria berusia 37 tahun memiliki tinggi badan 189 cm dan berat 138 kg. Badannya bongsor, berkulit hitam, dan memiliki masalah dengan bau badan. Sejak kecil, Ale hidup di lingkungan keluarga yang tidak mendukungnya. Ia tak memiliki teman dekat dan menjadi korban perundungan di sekolahnya.
@@ -49,10 +53,10 @@
 
 //         Ale akan makan seporsi mie ayam sebelum mati.`
 //     },
-//     { 
-//         id: 'bk-004', 
+//     {
+//         id: 'bk-004',
 //         title: 'The Lord of the Rings',
-//         author: 'J. R. R. Tolkien', 
+//         author: 'J. R. R. Tolkien',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/items/9786020332284_The_Return_of_the_King_by_09J_R_R_Tolkien_doc.jpg',
 //         description: `
 //         Rombongan kembali terpisah. Gandalf membawa Pippin pergi ke Minas Tirith setelah Hobbit bernama lengkap Peregrin itu tergoda melihat ke dalam Batu Penglihatan.
@@ -74,10 +78,10 @@
 //         Rencana Aragorn dan Gandalf di depan Gerbang Hitam Mordor terbongkar oleh Sauron. Perhatian Sauron langsung berpindah dan mengarah ke Gunung Maut di mana Frodo dan Sam berada sekarang…
 //         `
 //     },
-//     { 
-//         id: 'bk-005', 
+//     {
+//         id: 'bk-005',
 //         title: '11.11',
-//         author: 'Fiersa Besari', 
+//         author: 'Fiersa Besari',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/items/img110.jpg',
 //         description: `
 //         “Orang bilang, jodoh takkan ke mana. Aku rasa mereka keliru. Jodoh akan ke mana-mana terlebih dahulu sebelum akhirnya menetap.
@@ -93,10 +97,10 @@
 //         Pilihan judul 11:11 pada buku ini sepertinya dikarenakan di dalamnya menyuguhkan 11 cerita dengan karakter dan tema cerita yang berbeda. Terbagi dalam beberapa bagian, cerita di dalam buku ini memiliki judul-judul, yaitu Ainy, Melangkah Tanpamu, Acak Corak, Home, Samar, Tamaram, Kala, Glimpse, Harapan, I Heart Thee, serta Senja Bersayap.
 //         `
 //     },
-//     { 
-//         id: 'bk-006', 
+//     {
+//         id: 'bk-006',
 //         title: 'The Dating Game',
-//         author: 'Nina Ardianti', 
+//         author: 'Nina Ardianti',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/items/The_Dating_Game.jpg',
 //         description: `
 //         Kemal Arsjad
@@ -112,10 +116,10 @@
 //         Emma and Kemal shared a brief of history together. Can they survive each other?
 //         `
 //     },
-//     { 
-//         id: 'bk-007', 
+//     {
+//         id: 'bk-007',
 //         title: 'Tentang Kamu',
-//         author: 'Tere Liye', 
+//         author: 'Tere Liye',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/items/9786239554569.jpg',
 //         description: `
 //         Novel yang berjudul Tentang Kamu ini merupakan karya dari Tere Liye dan dapat dinikmati oleh pembaca baik dari kalangan remaja maupun orang dewasa.
@@ -130,10 +134,10 @@
 //         Masa lalu. Rasa sakit. Masa depan. Mimpi-mimpi. Semua akan berlalu, seperti sungai yang mengalir. Maka biarlah hidupku mengalir seperti sungai kehidupan.
 //         `
 //     },
-//     { 
-//         id: 'bk-008', 
+//     {
+//         id: 'bk-008',
 //         title: 'Hujan',
-//         author: 'Tere Liye', 
+//         author: 'Tere Liye',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/items/img20220905_11493451.jpg',
 //         description: `
 //         Novel Hujan merupakan novel yang mengisahkan kisah cinta serta perjuangan hidup Lail. Saat usianya baru menginjak 13 tahun, Lail menjadi seorang yatim piatu akibat ayah dan ibu Lail yang terkena letusan Gunung Api Purba dan gempa yang membuat kota tempat mereka tinggal hancur.
@@ -162,10 +166,10 @@
 //         Buku Life Lessons ini sangat bagus dan indah. Melalui buku ini kita akan belajar banyak mengenai emosi serta hasrat seseorang untuk menjalani hidup. Tidak sedikit orang menghabiskan seluruh hidupnya untuk mencari sebuah makna dari sebuah kehidupan, hingga akhirnya mereka lupa bahwa makna dari kehidupan adalah hidup mereka itu sendiri. Semoga kita semua tidak akan tersesat di dalam sebuah pencarian tanpa hasil.
 //         `
 //     },
-//     { 
-//         id: 'bk-010', 
+//     {
+//         id: 'bk-010',
 //         title: 'It Didn’t Start With You',
-//         author: 'Mark Woylinn', 
+//         author: 'Mark Woylinn',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/products/tdta5mbr-e.jpg',
 //         description: `
 //         Depresi. Anxiety. Sakit kronis. Fobia. Pemikiran obsesif. Terdapat bukti yang meyakinkan bahwa akar dari gangguan-gangguan tersebut tidak berasal dari pengalaman hidup yang langsung Anda alami atau dari ketidakseimbangan kimiawi di otak--melainkan dari sejarah hidup dari akar keluarga kita. Riset terbaru menemukan bahwa pengalaman traumatis DAPAT DIWARISKAN secara turun temurun. Anda serta orang-orang tersayang di dekat Anda kini tidak lagi sendiri.
@@ -182,10 +186,10 @@
 //         Mark Wolynn adalah pendiri dan direktur Family Constellation Institute. Ia telah mengajar di University of Pittsburgh, Western Psychiatric Institute, Kripalu, Omega Institute of Integral Studies serta banyak pusat pelatihan, klinik dan rumah-rumah sakit. Artikel-artikelnya banyak tersebar di Psychology Today, Mind Body Green, Mariashriver.com, Elephant Journal, dan Psych Central. Sebagai tambahan, ia juga menulis puisi yang telah terbit di The New Yorker. Saat ini, Mark tinggal di area San Fransisco Bay
 //         `
 //     },
-//     { 
-//         id: 'bk-011', 
+//     {
+//         id: 'bk-011',
 //         title: 'As Long as the Lemon Trees Grow',
-//         author: 'Zoulfa Katouh', 
+//         author: 'Zoulfa Katouh',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/products/-ee0-gcg30.jpg',
 //         description: `
 //         'This is an important book. Everyone should read it' - Elizabeth Laird, award-winning author of Welcome to Nowhere
@@ -207,10 +211,10 @@
 //         Write down your thoughts, impressions, and lessons learned. Involve the family in reading activities. Read stories to children or invite them to read together. It creates close family bonds through positive activities. Feel free to explore new genres. Sometimes, the best surprises come from books you never imagined you would enjoy. Take advantage of technology by reading digital books or joining an online literacy community. This opens up opportunities to connect with readers from all over the world.
 //         `
 //     },
-//     { 
-//         id: 'bk-012', 
+//     {
+//         id: 'bk-012',
 //         title: 'Bagaimana Jika Tuhan Bilang Tidak?',
-//         author: 'Tinandrose', 
+//         author: 'Tinandrose',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/product-metas/mi6i-i8a1u.jpg',
 //         description: `
 //         Bagaimana rasanya bersujud di atas sajadah dengan keyakinan bahwa Ada yang sedang membuka pintu langit untuk menerima doa-doamu?
@@ -227,10 +231,10 @@
 //         Pernahkah Anda terpikir betapa menariknya dunia yang terbuka lebar lewat lembaran buku? Membaca bukan hanya kegiatan rutin, tetapi juga petualangan tak terbatas ke dalam imajinasi dan pengetahuan. Membaca mengasah pikiran, membuka wawasan, dan memperkaya kosakata. Ini adalah pintu menuju dunia di luar kita yang tak terbatas. Tetapkan waktu khusus untuk membaca setiap hari. Dari membaca sebelum tidur hingga menyempatkan waktu di pagi hari, kebiasaan membaca dapat dibentuk dengan konsistensi. Pilih buku sesuai minat dan level literasi. Mulailah dengan buku yang sesuai dengan keinginan dan kemampuan membaca. Temukan tempat yang tenang dan nyaman untuk membaca. Lampu yang cukup, kursi yang nyaman, dan sedikit musik pelataran bisa menciptakan pengalaman membaca yang lebih baik. Buat catatan atau jurnal tentang buku yang telah Anda baca. Tuliskan pemikiran, kesan, dan pelajaran yang Anda dapatkan.
 //         `
 //     },
-//     { 
-//         id: 'bk-013', 
+//     {
+//         id: 'bk-013',
 //         title: 'Laut Bercerita',
-//         author: 'Leila S. Chudori', 
+//         author: 'Leila S. Chudori',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/items/9786024246945_Laut-Bercerita.png',
 //         description: `
 //         Buku ini terdiri atas dua bagian. Bagian pertama mengambil sudut pandang seorang mahasiswa aktivis bernama Laut, menceritakan bagaimana Laut dan kawan-kawannya menyusun rencana, berpindah-pindah dalam pelarian, hingga tertangkap oleh pasukan rahasia. Sedangkan bagian kedua dikisahkan oleh Asmara, adik Laut. Bagian kedua mewakili perasaan keluarga korban penghilangan paksa, bagaimana pencarian mereka terhadap kerabat mereka yang tak pernah kembali.
@@ -243,10 +247,10 @@
 //         Laut Bercerita, novel terbaru Leila S. Chudori, bertutur tentang kisah keluarga yang kehilangan, sekumpulan sahabat yang merasakan kekosongan di dada, sekelompok orang yang gemar menyiksa dan lancar berkhianat, sejumlah keluarga yang mencari kejelasan makam anaknya, dan tentang cinta yang tak akan luntur.
 //         `
 //     },
-//     { 
-//         id: 'bk-014', 
+//     {
+//         id: 'bk-014',
 //         title: 'Sebuah Seni untuk Bersikap Bodo Amat',
-//         author: 'Mark Manson', 
+//         author: 'Mark Manson',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/items/sebuah_seni_untuk_bersikap_bodo_amat_hard_cover_font_revisi-1.jpg',
 //         description: `
 //         Dalam buku pengembangan diri yang mewakili generasi ini, seorang blogger superstar menunjukkan pada kita bahwa kunci untuk menjadi orang yang lebih kuat, lebih bahagia adalah dengan mengerjakan segala tantangan dengan lebih baik dan berhenti memaksa diri untuk menjadi "positif" di setiap saat.
@@ -260,10 +264,10 @@
 //         "Dalam hidup ini, kita hanya punya kepedulian dalam jumlah yang terbatas. Makanya, Anda harus bijaksana dalam menentukan kepedulian Anda." Manson menciptakan momen perbincangan yang serius dan mendalam, dibungkus dengan cerita-cerita yang menghibur dan "kekinian", serta humor yang cadas. Buku ini merupakan tamparan di wajah yang menyegarkan untuk kita semua, supaya kita bisa mulai menjalani kehidupan yang lebih memuaskan, dan apa adanya.
 //         `
 //     },
-//     { 
-//         id: 'bk-015', 
+//     {
+//         id: 'bk-015',
 //         title: 'I Want To Die But I Want To Eat Tteokpokki',
-//         author: 'Baek Se Hee', 
+//         author: 'Baek Se Hee',
 //         image: 'https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/items/9786237351030.jpg',
 //         description: `
 //         Ketika perasaan stres dan depresi lebih terkalahkan oleh rasa lapar dan keinginan makan tteokpokki atau makanan favorit kamu, apa yang akan kamu lakukan? Apakah memilih untuk menyerah atau makan saja dulu?
@@ -277,10 +281,10 @@
 //     },
 // ];
 /**
-   { 
-        id: 'bk-007', 
+   {
+        id: 'bk-007',
         title: '',
-        author: '', 
+        author: '',
         image: '',
         description: `
         `
@@ -288,9 +292,11 @@
 */
 
 // ====== Storage util ======
-const storageKey = 'mini-lib-status-v2';
-const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
-function persist() { localStorage.setItem(storageKey, JSON.stringify(saved)); }
+const storageKey = "mini-lib-status-v5";
+const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+function persist() {
+    localStorage.setItem(storageKey, JSON.stringify(saved));
+}
 
 // ====== Render grid ======
 const grid = document.getElementById('grid');
@@ -312,86 +318,122 @@ if (params.get('deleted') === '1') {
     document.getElementById('alert').classList.remove('d-none');
 }
 
+// Stats (optional)
+const statTotal = document.getElementById("statTotal");
+const statAvailable = document.getElementById("statAvailable");
+const statBorrowed = document.getElementById("statBorrowed");
+
+function updateStats() {
+    const total = BOOKS.length;
+    const borrowed = Object.keys(saved).length;
+    const available = total - borrowed;
+
+    if (statTotal) statTotal.textContent = total;
+    if (statAvailable) statAvailable.textContent = available;
+    if (statBorrowed) statBorrowed.textContent = borrowed;
+}
+
 function makeCard(book, i) {
     const node = tmpl.content.firstElementChild.cloneNode(true);
-    const cover = node.querySelector('.cover');
+    const cover = node.querySelector(".cover");
 
     if (book.image) {
         cover.style.backgroundImage = `url(${book.image})`;
-        cover.style.backgroundSize = 'cover';
-        cover.style.backgroundPosition = 'center';
+        cover.style.backgroundSize = "cover";
+        cover.style.backgroundPosition = "center";
     }
 
     node.querySelector('[data-field="title"]').textContent = book.title;
-    node.querySelector('[data-field="author"]').textContent = 'oleh ' + book.author;
+    node.querySelector('[data-field="author"]').textContent = "oleh " + book.author;
 
-    const card = node.querySelector('.book-card');
+    const card = node.querySelector(".book-card");
     card.style.animationDelay = `${i * 60}ms`; // staggered animation
 
-    card.addEventListener('click', (e) => {
-        if (e.target.closest('button')) return;
-        window.location.href = `detail.html?id=${book.id}`;
+    // klik kartu -> detail
+    card.addEventListener("click", (e) => {
+        if (e.target.closest("button")) return;
+        window.location.href = `detail.html?id=${encodeURIComponent(book.id)}`;
     });
 
-    const statusPill = node.querySelector('.status');
-    const label = statusPill.querySelector('.label');
-    const dot = statusPill.querySelector('.dot');
-    const btn = node.querySelector('.btn');
-    const ribbon = node.querySelector('.ribbon');
+    const statusPill = node.querySelector(".status");
+    const label = statusPill.querySelector(".label");
+    const btn = node.querySelector(".btn");
+    const ribbon = node.querySelector(".ribbon");
+    const btnLabel = node.querySelector(".btn-label");
 
     function applyState(isBorrowed) {
-        btn.setAttribute('aria-pressed', isBorrowed ? 'true' : 'false');
+        btn.setAttribute("aria-pressed", isBorrowed ? "true" : "false");
+
         if (isBorrowed) {
-            statusPill.classList.add('borrowed', 'text-bg-danger');
-            statusPill.classList.remove('text-bg-success');
-            label.textContent = 'Dipinjam';
-            btn.querySelector('.btn-label').textContent = 'Kembalikan';
-            ribbon.classList.remove('d-none');
+            statusPill.classList.add("borrowed", "text-bg-danger");
+            statusPill.classList.remove("text-bg-success");
+            label.textContent = "Dipinjam";
+            if (btnLabel) btnLabel.textContent = IS_ADMIN ? "Kembalikan" : "Dipinjam";
+            ribbon.classList.remove("d-none");
         } else {
-            statusPill.classList.remove('borrowed', 'text-bg-danger');
-            statusPill.classList.add('text-bg-success');
-            label.textContent = 'Tersedia';
-            btn.querySelector('.btn-label').textContent = 'Pinjam';
-            ribbon.classList.add('d-none');
+            statusPill.classList.remove("borrowed", "text-bg-danger");
+            statusPill.classList.add("text-bg-success");
+            label.textContent = "Tersedia";
+            if (btnLabel) btnLabel.textContent = IS_ADMIN ? "Pinjam" : "Tersedia";
+            ribbon.classList.add("d-none");
         }
     }
 
     applyState(!!saved[book.id]);
 
-    btn.addEventListener('click', () => {
-        const nowBorrowed = !saved[book.id];
-        saved[book.id] = nowBorrowed;
-        if (!nowBorrowed) delete saved[book.id];
-        applyState(nowBorrowed);
-        persist();
-    });
+    // Role-based: user read-only
+    if (!IS_ADMIN) {
+        btn.disabled = true;
+        btn.classList.add("opacity-50");
+        btn.title = "Hanya admin yang bisa mengubah status.";
+    } else {
+        btn.addEventListener("click", () => {
+            const nowBorrowed = !saved[book.id];
+            saved[book.id] = nowBorrowed;
+            if (!nowBorrowed) delete saved[book.id];
+
+            applyState(nowBorrowed);
+            persist();
+            updateStats();
+        });
+    }
 
     return node;
 }
 
 function render(data) {
-    grid.innerHTML = '';
+    grid.innerHTML = "";
     data.forEach((b, i) => grid.appendChild(makeCard(b, i)));
     updateCount();
     toggleEmpty(data.length === 0);
+    updateStats();
 }
 
 function updateCount() {
-    const visible = grid.querySelectorAll('.book-card').length;
-    resultCount.textContent = `${visible} hasil`;
+    const visible = grid.querySelectorAll(".book-card").length;
+    if (resultCount) resultCount.textContent = `${visible} hasil`;
 }
-function toggleEmpty(show) { document.getElementById('empty').classList.toggle('d-none', !show); }
+function toggleEmpty(show) {
+    document.getElementById("empty")?.classList.toggle("d-none", !show);
+}
 
 // ====== Search (Live) ======
 function filterBooks(q) {
     const s = q.trim().toLowerCase();
     if (!s) { render(BOOKS); return; }
-    const filtered = BOOKS.filter(b => b.title.toLowerCase().includes(s) || b.author.toLowerCase().includes(s));
+    const filtered = BOOKS.filter(
+        (b) => b.title.toLowerCase().includes(s) || b.author.toLowerCase().includes(s)
+    );
     render(filtered);
 }
-search.addEventListener('input', (e) => filterBooks(e.target.value));
+search?.addEventListener("input", (e) => filterBooks(e.target.value));
 
 // keyboard shortcut '/'
-window.addEventListener('keydown', (e) => {
-    if (e.key === '/' && document.activeElement !== search) { e.preventDefault(); search.focus(); }
+window.addEventListener("keydown", (e) => {
+    if (e.key === "/" && document.activeElement !== search) {
+        e.preventDefault();
+        search?.focus();
+    }
 });
+
+updateStats();

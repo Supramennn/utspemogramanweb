@@ -25,12 +25,17 @@ Project ini dibuat untuk kebutuhan pembelajaran (UAS) menggunakan **HTML, Bootst
 
 ```
 web-uas/
-├─ index.html
+├─ signup.html
+├─ login.html
+├─ menu.html
+├─ dashboard.html
 ├─ detail.html
 ├─ create.html
 ├─ edit.html
 ├─ js/
-│  ├─ main.js
+│  ├─ app.js
+|  ├─ login.js
+|  ├─ signup.js
 │  ├─ detail.js
 │  └─ edit.js
 ├─ css/
@@ -88,5 +93,5 @@ $conn = new mysqli("localhost", "root", "", "perpustakaan");
 ### 5️⃣ Jalankan di Browser
 
 ```
-http://localhost/utspemrogramanweb/index.html
+http://localhost/utspemrogramanweb/dashboard.html
 ```

@@ -2,7 +2,7 @@
 require 'koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: ../index.html");
+    header("Location: ../dashboard.html");
     exit;
 }
 
@@ -23,6 +23,6 @@ $stmt->execute();
 $stmt->close();
 $conn->close();
 
-// balik ke index
-header("Location: ../index.html");
+// balik ke dashboard
+header("Location: ../dashboard.html");
 exit;
