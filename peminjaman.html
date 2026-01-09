@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Laporan Peminjaman</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/all.min.css">
+    <style>
+        body { background-color: #1a1d24; color: white; padding: 20px; }
+        .card-custom { background-color: #252a34; border-radius: 10px; padding: 20px; }
+        .table { color: white; }
+        .modal-header-orange { background-color: #ff9800; color: white; }
+        .status-badge { background-color: #ffc107; color: black; padding: 4px 12px; border-radius: 5px; font-weight: bold; }
+        .btn-add { background-color: #198754; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container card-custom">
+    <div class="d-flex justify-content-between mb-3">
+        <button class="btn btn-add" data-bs-toggle="modal" data-bs-target="#loanModal" onclick="resetForm()">
+            <i class="fas fa-plus"></i> Tambah Peminjaman
+        </button>
+        <div class="input-group w-25">
+            <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Cari Transaksi...">
+            <span class="input-group-text bg-dark border-secondary"><i class="fas fa-search text-white"></i></span>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>No</th><th>ID Transaksi</th><th>Nama Buku</th><th>Nama Peminjam</th>
+                <th>Tgl Pinjam</th><th>Tgl Kembali</th><th>Status</th><th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody id="peminjamanTable"></tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="loanModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="php/peminjaman_process.php" method="POST" class="modal-content text-dark">
+            <div class="modal-header modal-header-orange">
+                <h5 class="modal-title" id="modalTitle">Tambah Peminjaman</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="id" id="loanId">
+                <div class="mb-3">
+                    <label class="text-primary fw-bold">Pilih Buku</label>
+                    <select name="book_id" id="book_id" class="form-select" required></select>
+                </div>
+                <div class="mb-3">
+                    <label class="text-primary fw-bold">Nama Peminjam</label>
+                    <input type="text" name="nama_peminjam" id="nama_peminjam" class="form-control" placeholder="Masukkan nama peminjam" required>
+                </div>
+                <div class="mb-3">
+                    <label class="text-primary fw-bold">Tanggal Pinjam</label>
+                    <input type="date" name="tgl_pinjam" id="tgl_pinjam" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="text-primary fw-bold">Tanggal Kembali</label>
+                    <input type="date" name="tgl_kembali" id="tgl_kembali" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="text-primary fw-bold">Status</label>
+                    <select name="status" id="status" class="form-select">
+                        <option value="Dipinjam">Dipinjam</option>
+                        <option value="Kembali">Kembali</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="btnSubmit">Simpan</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Kembali</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Ambil data buku untuk dropdown
+    fetch('php/book_read.php').then(res => res.json()).then(books => {
+        let options = '<option value="">-- Pilih Buku --</option>';
+        books.forEach(b => options += `<option value="${b.id}">${b.title}</option>`);
+        document.getElementById('book_id').innerHTML = options;
+    });
+
+    // Ambil data laporan (Slide 3)
+    function loadLaporan() {
+        fetch('php/peminjaman_read.php').then(res => res.json()).then(data => {
+            let rows = '';
+            data.forEach((item, i) => {
+                rows += `<tr>
+                    <td>${i+1}</td>
+                    <td>${item.id_transaksi}</td>
+                    <td>${item.title}</td>
+                    <td>${item.nama_peminjam}</td>
+                    <td>${item.tgl_pinjam}</td>
+                    <td>${item.tgl_kembali}</td>
+                    <td><span class="status-badge">${item.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" onclick="editLoan(${JSON.stringify(item).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>`;
+            });
+            document.getElementById('peminjamanTable').innerHTML = rows;
+        });
+    }
+
+    function editLoan(item) {
+        document.getElementById('modalTitle').innerText = "Edit Peminjaman";
+        document.getElementById('loanId').value = item.id;
+        document.getElementById('book_id').value = item.book_id;
+        document.getElementById('nama_peminjam').value = item.nama_peminjam;
+        document.getElementById('tgl_pinjam').value = item.tgl_pinjam;
+        document.getElementById('tgl_kembali').value = item.tgl_kembali;
+        document.getElementById('status').value = item.status;
+        document.getElementById('btnSubmit').innerText = "Update";
+        new bootstrap.Modal(document.getElementById('loanModal')).show();
+    }
+
+    function resetForm() {
+        document.getElementById('modalTitle').innerText = "Tambah Peminjaman";
+        document.getElementById('loanId').value = "";
+        document.getElementById('btnSubmit').innerText = "Simpan";
+    }
+
+    loadLaporan();
+</script>
+</body>
+</html>
