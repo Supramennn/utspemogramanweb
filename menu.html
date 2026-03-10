@@ -11,10 +11,8 @@
 </head>
 
 <body class="bg-slate text-light">
+    <!-- login.js HARUS di-load duluan — menyediakan requireAuth() dan logout() -->
     <script src="js/login.js"></script>
-    <script>
-        const me = requireAuth("login.html");
-    </script>
 
     <nav class="navbar navbar-dark glass border-bottom">
         <div class="container">
@@ -57,14 +55,40 @@
     </main>
 
     <script>
-        document.getElementById("welcome").textContent = `Login sebagai: ${me.username} (role: ${me.role})`;
-        document.getElementById("roleDesc").textContent = (me.role === "admin")
-            ? "Kamu admin — bisa ubah status buku."
-            : "Kamu user biasa — mode lihat aja (read-only).";
+        /**
+         * MenuPage — mengelola tampilan & interaksi halaman menu
+         * FIX: clearAuth() → logout() dari login.js
+         */
+        class MenuPage {
+            constructor() {
+                // requireAuth() dari login.js — redirect ke login jika belum login
+                this.user = requireAuth("login.html");
+                if (!this.user) return;
 
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-            clearAuth();
-            window.location.href = "login.html";
+                this._render();
+                this._bindEvents();
+            }
+
+            _render() {
+                const { user } = this;
+
+                document.getElementById("welcome").textContent =
+                    `Login sebagai: ${user.username} (role: ${user.role})`;
+
+                document.getElementById("roleDesc").textContent = (user.role === "admin")
+                    ? "Kamu admin — bisa ubah status buku."
+                    : "Kamu user biasa — mode lihat aja (read-only).";
+            }
+
+            _bindEvents() {
+                // FIX: pakai logout() dari login.js — clearAuth() tidak pernah ada
+                document.getElementById("logoutBtn").addEventListener("click", () => logout());
+            }
+        }
+
+        // Inisialisasi setelah DOM siap
+        document.addEventListener("DOMContentLoaded", () => {
+            new MenuPage();
         });
     </script>
 </body>

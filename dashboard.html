@@ -5,8 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard — Perpustakaan Mini</title>
-    <meta name="description" content="Dashboard katalog buku dengan live search, role-based access, dan statistik." />
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
@@ -15,32 +13,20 @@
 
 <body class="bg-slate text-light">
     <!-- ALERT DELETE BOOK -->
-    <div id="alert" class="alert alert-success d-none">
-        Buku berhasil dihapus
-    </div>
-
-    <!-- AUTH GUARD -->
-    <script src="js/login.js"></script>
-    <script>
-        const currentUser = requireAuth("login.html");
-        window.CURRENT_USER = currentUser; // dipakai app.js
-    </script>
+    <div id="book-alert" class="alert alert-success d-none">Buku berhasil dihapus</div>
 
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top glass border-bottom">
         <div class="container">
             <a class="navbar-brand fw-bold" href="menu.html">📚 Dashboard Perpustakaan</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navDash"
-                aria-controls="navDash" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navDash">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navDash">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link active" href="#katalog">Katalog</a></li>
                     <li class="nav-item"><a class="nav-link" href="#fitur">Fitur</a></li>
                 </ul>
-
                 <div class="d-flex align-items-center gap-2">
                     <span class="text-secondary small">
                         Hi, <strong id="userName"></strong>
@@ -57,29 +43,19 @@
         <div class="row g-3 align-items-center">
             <div class="col-lg-6">
                 <h1 class="fw-extrabold mb-1">Katalog Buku</h1>
-                <p class="text-secondary mb-0">
-                    Cari buku favoritmu dan lihat status peminjamannya.
-                </p>
+                <p class="text-secondary mb-0">Cari buku favoritmu dan lihat status peminjamannya.</p>
                 <span id="roleNote"></span>
             </div>
-
             <div class="col-lg-4">
                 <div class="input-group mb-2">
-                    <span class="input-group-text bg-dark text-secondary border-0">
-                        <i class="bi bi-search"></i>
-                    </span>
-                    <input id="search" type="text"
-                        class="form-control bg-dark text-light border-0"
+                    <span class="input-group-text bg-dark text-secondary border-0"><i class="bi bi-search"></i></span>
+                    <input id="search" type="text" class="form-control bg-dark text-light border-0"
                         placeholder="Cari judul atau penulis…" autocomplete="off" />
-                    <span id="resultCount"
-                        class="input-group-text bg-dark text-secondary border-0">0</span>
+                    <span id="resultCount" class="input-group-text bg-dark text-secondary border-0">0</span>
                 </div>
             </div>
-
             <div class="col-lg-2">
-                <!-- ADMIN ONLY -->
-                <a id="btnAddBook" href="create.html"
-                    class="btn btn-success d-none w-100">
+                <a id="btnAddBook" href="create.html" class="btn btn-success d-none w-100">
                     <i class="bi bi-plus-lg"></i> Tambah Buku
                 </a>
             </div>
@@ -98,7 +74,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-12 col-md-4">
                 <div class="card stat-card lift-on-hover h-100">
                     <div class="card-body d-flex align-items-center justify-content-between">
@@ -110,7 +85,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-12 col-md-4">
                 <div class="card stat-card lift-on-hover h-100">
                     <div class="card-body d-flex align-items-center justify-content-between">
@@ -143,7 +117,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-4">
                 <div class="card feature-card h-100">
                     <div class="card-body">
@@ -153,7 +126,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-4">
                 <div class="card feature-card h-100">
                     <div class="card-body">
@@ -179,13 +151,11 @@
                 <div class="card-body d-flex flex-column">
                     <h6 class="card-title mb-1 title-sm" data-field="title"></h6>
                     <p class="card-subtitle mb-3 text-secondary small" data-field="author"></p>
-
                     <div class="d-flex align-items-center justify-content-between mt-auto gap-2">
                         <span class="status badge rounded-pill text-bg-success d-inline-flex align-items-center gap-1">
                             <span class="dot"></span>
                             <span class="label">Tersedia</span>
                         </span>
-
                         <button class="btn btn-outline-info btn-sm" type="button" aria-pressed="false">
                             <i class="bi bi-arrow-left-right me-1"></i><span class="btn-label">Pinjam</span>
                         </button>
@@ -197,26 +167,235 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
+
+    <!-- login.js HARUS di-load duluan — menyediakan requireAuth(), logout(), AuthManager -->
+    <script src="js/login.js"></script>
     <script src="js/app.js"></script>
+
     <script>
-        document.getElementById("userName").textContent = currentUser?.username || "User";
-        document.getElementById("roleBadge").textContent = currentUser?.role || "user";
+        /**
+         * NavbarController — mengelola tampilan & event navbar
+         * Menggunakan AuthManager dari login.js (tidak duplikat)
+         */
+        class NavbarController {
+            constructor(user) {
+                this.user = user;
+                this._bindElements();
+                this._render();
+                this._bindEvents();
+            }
 
-        document.getElementById("roleNote").textContent =
-            (currentUser?.role === "admin") ? " (Kamu admin — bisa ubah status buku)" : " (Kamu user — read-only)";
+            _bindElements() {
+                this.elName = document.getElementById("userName");
+                this.elBadge = document.getElementById("roleBadge");
+                this.elNote = document.getElementById("roleNote");
+                this.elLogout = document.getElementById("logoutBtn");
+                this.elBtnAdd = document.getElementById("btnAddBook");
+            }
 
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-            // clearAuth();
-            localStorage.clear();
-            window.location.href = "login.html";
-        });
+            _render() {
+                const { user } = this;
+                this.elName.textContent = user?.username ?? "User";
+                this.elBadge.textContent = user?.role ?? "user";
+                this.elNote.textContent = (user?.role === "admin")
+                    ? " (Kamu admin — bisa ubah status buku)"
+                    : " (Kamu user — read only)";
 
-        const btnAdd = document.getElementById("btnAddBook");
-        if (currentUser?.role === "admin") {
-            btnAdd.classList.remove("d-none");
+                if (user?.role === "admin") {
+                    this.elBtnAdd.classList.remove("d-none");
+                }
+            }
+
+            _bindEvents() {
+                // FIX: pakai logout() dari login.js — konsisten, tidak duplikat
+                this.elLogout.addEventListener("click", () => logout());
+            }
         }
 
-        document.getElementById("year").textContent = new Date().getFullYear();
+        /**
+         * BookCard — representasi satu kartu buku di UI
+         */
+        class BookCard {
+            constructor(book, isAdmin, onToggle) {
+                this.book = book;
+                this.isAdmin = isAdmin;
+                this.onToggle = onToggle;
+                this.element = this._build();
+            }
+
+            _build() {
+                const tpl = document.getElementById("cardTemplate");
+                const clone = tpl.content.cloneNode(true);
+                const wrap = clone.querySelector(".col-12");
+
+                wrap.dataset.bookId = this.book.id;
+
+                const title = clone.querySelector("[data-field='title']");
+                const author = clone.querySelector("[data-field='author']");
+                const cover = clone.querySelector(".cover");
+                const btn = clone.querySelector("button");
+
+                title.textContent = this.book.title;
+                author.textContent = this.book.author;
+
+                if (this.book.cover) {
+                    cover.style.backgroundImage = `url('${this.book.cover}')`;
+                    cover.style.backgroundSize = "cover";
+                }
+
+                this._updateStatus(clone, this.book.borrowed);
+
+                if (!this.isAdmin) {
+                    btn.disabled = true;
+                    btn.title = "Hanya admin yang bisa mengubah status";
+                }
+
+                btn.addEventListener("click", () => {
+                    this.book.borrowed = !this.book.borrowed;
+                    this._updateStatus(clone, this.book.borrowed);
+                    this.onToggle?.(this.book);
+                });
+
+                return clone;
+            }
+
+            _updateStatus(root, borrowed) {
+                const ribbon = root.querySelector(".ribbon");
+                const badge = root.querySelector(".status");
+                const label = root.querySelector(".status .label");
+                const btn = root.querySelector("button");
+                const btnLbl = root.querySelector(".btn-label");
+                const card = root.querySelector(".book-card");
+
+                if (borrowed) {
+                    ribbon?.classList.remove("d-none");
+                    badge?.classList.replace("text-bg-success", "text-bg-danger");
+                    if (label) label.textContent = "Dipinjam";
+                    if (btnLbl) btnLbl.textContent = "Kembalikan";
+                    btn?.setAttribute("aria-pressed", "true");
+                    card?.classList.add("borrowed");
+                } else {
+                    ribbon?.classList.add("d-none");
+                    badge?.classList.replace("text-bg-danger", "text-bg-success");
+                    if (label) label.textContent = "Tersedia";
+                    if (btnLbl) btnLbl.textContent = "Pinjam";
+                    btn?.setAttribute("aria-pressed", "false");
+                    card?.classList.remove("borrowed");
+                }
+            }
+        }
+
+        /**
+         * StatsPanel — mengelola tampilan statistik buku
+         */
+        class StatsPanel {
+            constructor() {
+                this.elTotal = document.getElementById("statTotal");
+                this.elAvailable = document.getElementById("statAvailable");
+                this.elBorrowed = document.getElementById("statBorrowed");
+            }
+
+            update(books) {
+                const total = books.length;
+                const borrowed = books.filter(b => b.borrowed).length;
+                this.elTotal.textContent = total;
+                this.elAvailable.textContent = total - borrowed;
+                this.elBorrowed.textContent = borrowed;
+            }
+        }
+
+        /**
+         * Dashboard — controller utama
+         * FIX: AuthManager tidak diduplikat — pakai requireAuth() dari login.js
+         */
+        class Dashboard {
+            constructor() {
+                // requireAuth() dari login.js — redirect otomatis jika belum login
+                this.user = requireAuth("login.html");
+                if (!this.user) return;
+
+                this.books = this._loadBooks();
+                this.navbar = new NavbarController(this.user);
+                this.stats = new StatsPanel();
+                this.grid = document.getElementById("grid");
+                this.elEmpty = document.getElementById("empty");
+                this.elCount = document.getElementById("resultCount");
+                this.elSearch = document.getElementById("search");
+
+                this._bindSearch();
+                this._render(this.books);
+                document.getElementById("year").textContent = new Date().getFullYear();
+            }
+
+            _loadBooks() {
+                try {
+                    const saved = localStorage.getItem("library_books");
+                    return saved ? JSON.parse(saved) : this._defaultBooks();
+                } catch {
+                    return this._defaultBooks();
+                }
+            }
+
+            _saveBooks() {
+                localStorage.setItem("library_books", JSON.stringify(this.books));
+            }
+
+            _defaultBooks() {
+                return [
+                    { id: 1, title: "Laskar Pelangi", author: "Andrea Hirata", borrowed: false },
+                    { id: 2, title: "Bumi Manusia", author: "Pramoedya Ananta Toer", borrowed: true },
+                    { id: 3, title: "Dilan 1990", author: "Pidi Baiq", borrowed: false },
+                    { id: 4, title: "Negeri 5 Menara", author: "A. Fuadi", borrowed: false },
+                    { id: 5, title: "Perahu Kertas", author: "Dee Lestari", borrowed: true },
+                    { id: 6, title: "Supernova", author: "Dee Lestari", borrowed: false },
+                ];
+            }
+
+            _bindSearch() {
+                this.elSearch.addEventListener("input", () => {
+                    const q = this.elSearch.value.toLowerCase().trim();
+                    const filtered = this.books.filter(b =>
+                        b.title.toLowerCase().includes(q) ||
+                        b.author.toLowerCase().includes(q)
+                    );
+                    this._render(filtered);
+                });
+            }
+
+            _render(books) {
+                this.grid.innerHTML = "";
+
+                if (books.length === 0) {
+                    this.elEmpty.classList.remove("d-none");
+                    this.elCount.textContent = "0";
+                    this.stats.update([]);
+                    return;
+                }
+
+                this.elEmpty.classList.add("d-none");
+                this.elCount.textContent = books.length;
+                this.stats.update(books);
+
+                books.forEach(book => {
+                    const card = new BookCard(
+                        book,
+                        this.user?.role === "admin",
+                        (updated) => {
+                            const idx = this.books.findIndex(b => b.id === updated.id);
+                            if (idx !== -1) this.books[idx] = updated;
+                            this._saveBooks();
+                            this.stats.update(this.books);
+                        }
+                    );
+                    this.grid.appendChild(card.element);
+                });
+            }
+        }
+
+        // Inisialisasi setelah DOM siap
+        document.addEventListener("DOMContentLoaded", () => {
+            new Dashboard();
+        });
     </script>
 </body>
 
