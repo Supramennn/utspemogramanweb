@@ -1,5 +1,5 @@
 <?php
-require 'koneksi.php';
+require_once 'book.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: ../dashboard.html");
@@ -15,13 +15,8 @@ if ($title === '' || $author === '') {
     die('Judul dan penulis wajib diisi.');
 }
 
-$stmt = $conn->prepare("INSERT INTO book (title, author, image, description) VALUES (?, ?, ?, ?)");
-
-$stmt->bind_param("ssss", $title, $author, $image, $description);
-$stmt->execute();
-
-$stmt->close();
-$conn->close();
+$book = new Book();
+$book->create($title, $author, $image, $description);
 
 // balik ke dashboard
 header("Location: ../dashboard.html");

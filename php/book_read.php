@@ -1,9 +1,8 @@
 <?php
-include "koneksi.php";
-$result = $conn->query("SELECT * FROM book");
-$data = [];
-while ($row = $result->fetch_assoc()) {
-  $data[] = $row;
-}
+require_once 'book.php';
+
+$book = new Book();
+$data = $book->read();
+
 echo json_encode($data);
 ?>

@@ -1,5 +1,5 @@
 <?php
-require 'koneksi.php';
+require_once 'book.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: ../dashboard.html");
@@ -8,9 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $id = $_POST['id'];
 
-$stmt = $conn->prepare("DELETE FROM book WHERE id=?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
+$book = new Book();
+$book->delete($id);
 
 header("Location: ../dashboard.html?deleted=1");
 exit;
