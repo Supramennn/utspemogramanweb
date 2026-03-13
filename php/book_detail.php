@@ -1,14 +1,15 @@
 <?php
-include "koneksi.php";
+require_once 'book.php';
 
 $id = $_GET['id'] ?? '';
 
-$result = $conn->query("SELECT * FROM book WHERE id='$id'");
-$data = $result->fetch_assoc();
+$book = new Book();
+$data = $book->detail($id);
 
 if ($data) {
   echo json_encode($data);
-} else {
+}
+else {
   http_response_code(404);
   echo json_encode(["error" => "Book not found"]);
 }
